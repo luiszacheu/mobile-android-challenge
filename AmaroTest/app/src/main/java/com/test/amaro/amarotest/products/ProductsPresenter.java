@@ -12,9 +12,9 @@ import java.util.List;
 public class ProductsPresenter implements ProductsContract.Presenter {
 
     private ProductsContract.View view;
-    private ProductsRepositoryImpl repository;
+    private ProductsRepository repository;
 
-    ProductsPresenter(ProductsContract.View view, ProductsRepositoryImpl repository) {
+    ProductsPresenter(ProductsContract.View view, ProductsRepository repository) {
         this.view = view;
         this.repository = repository;
         view.setPresenter(this);

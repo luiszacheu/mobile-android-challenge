@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+import com.test.amaro.amarotest.Injection;
 import com.test.amaro.amarotest.R;
 import com.test.amaro.amarotest.data.ProductsRepositoryImpl;
 import com.test.amaro.amarotest.util.AndroidUtils;
@@ -40,7 +41,7 @@ public class ProductsActivity extends AppCompatActivity{
             AndroidUtils.addFragmentToActivity(getSupportFragmentManager(), productsFragment, R.id.framelayout_products_fragmentcontainer);
         }
 
-        presenter = new ProductsPresenter(productsFragment, new ProductsRepositoryImpl());
+        presenter = new ProductsPresenter(productsFragment, Injection.provideProductsRepository());
 
     }
 

@@ -17,6 +17,25 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    flavorDimensions "mock"
+
+    productFlavors {
+        mock {
+            applicationIdSuffix = ".mock"
+            dimension "mock"
+        }
+        prod {
+
+        }
+    }
+
+    android.variantFilter { variant ->
+        if(variant.buildType.name.equals('release')
+                && variant.getFlavors().get(0).name.equals('mock')){
+            variant.setIgnore(true)
+        }
+    }
 }
 
 dependencies {
@@ -42,5 +61,8 @@ dependencies {
 
     testImplementation "junit:junit:$rootProject.ext.junitVersion"
     androidTestImplementation "com.android.support.test:runner:$rootProject.ext.junitRunnerVersion"
+    testImplementation "org.mockito:mockito-core:$rootProject.ext.mockitoVersion"
+
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$rootProject.ext.espressoVersion"
+
 }
