@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +23,8 @@ import butterknife.ButterKnife;
  * Created by luiszacheu on 11/07/18.
  */
 public class ProductsFragment extends Fragment implements ProductsContract.View {
+
+    private static final int COLUMNS_NUMBER = 2;
 
     @BindView(R.id.recyclerview_products)
     RecyclerView recyclerView;
@@ -69,7 +71,7 @@ public class ProductsFragment extends Fragment implements ProductsContract.View 
     public void showProducts(List<Product> products) {
         adapter = new ProductsAdapter(products, productListener);
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), COLUMNS_NUMBER));
     }
 
 

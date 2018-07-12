@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.test.amaro.amarotest.R;
+import com.test.amaro.amarotest.data.ProductsRepositoryImpl;
 import com.test.amaro.amarotest.util.AndroidUtils;
 
 import butterknife.BindView;
@@ -39,7 +40,7 @@ public class ProductsActivity extends AppCompatActivity{
             AndroidUtils.addFragmentToActivity(getSupportFragmentManager(), productsFragment, R.id.framelayout_products_fragmentcontainer);
         }
 
-        presenter = new ProductsPresenter(productsFragment);
+        presenter = new ProductsPresenter(productsFragment, new ProductsRepositoryImpl());
 
     }
 

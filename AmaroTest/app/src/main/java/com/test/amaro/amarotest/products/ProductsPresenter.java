@@ -1,8 +1,9 @@
 package com.test.amaro.amarotest.products;
 
+import com.test.amaro.amarotest.data.ProductsRepository;
+import com.test.amaro.amarotest.data.ProductsRepositoryImpl;
 import com.test.amaro.amarotest.model.Product;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,19 +12,32 @@ import java.util.List;
 public class ProductsPresenter implements ProductsContract.Presenter {
 
     ProductsContract.View view;
+    ProductsRepositoryImpl repository;
 
-    ProductsPresenter(ProductsContract.View view) {
+    ProductsPresenter(ProductsContract.View view, ProductsRepositoryImpl repository) {
         this.view = view;
+        this.repository = repository;
         view.setPresenter(this);
     }
 
     @Override
     public void loadProducts() {
-        List<Product> products = new ArrayList<>();
-        products.add(new Product("Produto A", "R$ 10,00"));
-        products.add(new Product("Produto B", "R$ 15,00"));
+//        List<Product> products = new ArrayList<>();
+//        products.add(new Product("Produto A", "R$ 10,00"));
+//        products.add(new Product("Produto B", "R$ 15,00"));
+        repository.loadProducts(new ProductsRepository.LoadProductsCallback() {
+            @Override
+            public void onProductsLoaded(List<Product> products) {
+                view.showProducts(products);
+            }
 
-        view.showProducts(products);
+            @Override
+            public void onProductsLoadedFailed(Throwable throwable) {
+                //TODO Implement error
+            }
+        });
+
+
     }
 
     @Override
@@ -34,5 +48,6 @@ public class ProductsPresenter implements ProductsContract.Presenter {
     @Override
     public void start() {
         loadProducts();
+
     }
 }

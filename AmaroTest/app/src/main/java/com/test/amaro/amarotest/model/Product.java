@@ -1,20 +1,48 @@
 package com.test.amaro.amarotest.model;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
+
 /**
  * Created by luiszacheu on 11/07/18.
  */
 public class Product {
 
+    @SerializedName("name")
     private String name;
+
+    @SerializedName("style")
     private String style;
+
+    @SerializedName("code_color")
     private String codeColor;
+
+    @SerializedName("code_slug")
+    private String colorSlug;
+
+    @SerializedName("color")
     private String color;
+
+    @SerializedName("on_sale")
     private boolean onSale;
+
+    @SerializedName("regular_price")
     private String regularPrice;
+
+    @SerializedName("actual_price")
     private String actualPrice;
+
+    @SerializedName("discount_percentage")
     private String discountPercentage;
+
+    @SerializedName("installments")
     private String installments;
+
+    @SerializedName("image")
     private String image;
+
+    private List<Size> sizes;
 
     public Product() {
     }
@@ -46,6 +74,14 @@ public class Product {
 
     public void setCodeColor(String codeColor) {
         this.codeColor = codeColor;
+    }
+
+    public String getColorSlug() {
+        return colorSlug;
+    }
+
+    public void setColorSlug(String colorSlug) {
+        this.colorSlug = colorSlug;
     }
 
     public String getColor() {
@@ -102,6 +138,14 @@ public class Product {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public List<Size> getSizes() {
+        return sizes;
+    }
+
+    public void setSizes(List<Size> sizes) {
+        this.sizes = sizes;
     }
 
     public int getActualPriceCents() {
