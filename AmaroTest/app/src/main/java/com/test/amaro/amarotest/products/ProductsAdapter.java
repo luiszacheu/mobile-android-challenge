@@ -1,5 +1,7 @@
 package com.test.amaro.amarotest.products;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
@@ -45,17 +47,12 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final Product product =  products.get(position);
-
-        if (product.getImage() != null){
             GlideApp.with(holder.parent.getContext())
                     .load(product.getImage())
+                    .error(new ColorDrawable(Color.GRAY))
                     .override(400, Target.SIZE_ORIGINAL)
                     .into(holder.image);
-        }else{
-            GlideApp.with(holder.parent.getContext())
-                    .clear(holder.image);
-            holder.image.setImageDrawable(null);
-        }
+
         holder.name.setText(product.getName());
         holder.price.setText(product.getActualPrice());
         holder.parent.setOnClickListener(new View.OnClickListener() {
