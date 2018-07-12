@@ -3,12 +3,15 @@ package com.test.amaro.amarotest.products;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.VisibleForTesting;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.test.amaro.amarotest.R;
@@ -26,8 +29,14 @@ public class ProductsFragment extends Fragment implements ProductsContract.View 
 
     private static final int COLUMNS_NUMBER = 2;
 
-    @BindView(R.id.recyclerview_products)
+    @BindView(R.id.recyclerView_products)
     RecyclerView recyclerView;
+
+    @BindView(R.id.progressBar_products)
+    ProgressBar progressBar;
+
+    @BindView(R.id.error_layout)
+    ConstraintLayout errorLayout;
 
     private ProductsContract.Presenter presenter;
 
@@ -64,7 +73,7 @@ public class ProductsFragment extends Fragment implements ProductsContract.View 
 
     @Override
     public void setLoading(boolean visible) {
-
+        progressBar.setVisibility(visible ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -78,6 +87,11 @@ public class ProductsFragment extends Fragment implements ProductsContract.View 
     @Override
     public void showProductDetail(Product product) {
         Toast.makeText(getContext(), product.toString(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showErrorLayout() {
+        errorLayout.setVisibility(View.VISIBLE);
     }
 
     @Override

@@ -26,12 +26,16 @@ public class ProductsRepositoryImpl implements ProductsRepository {
         Call<ProductsResponse> productsResponseCall = service.getAllProducts();
         productsResponseCall.enqueue(new Callback<ProductsResponse>() {
             @Override
-            public void onResponse(Call<ProductsResponse> call, Response<ProductsResponse> response) {
-                callback.onProductsLoaded(response.body().getProducts());
+            public void onResponse(@NonNull Call<ProductsResponse> call, @NonNull Response<ProductsResponse> response) {
+                if (response.code() == 200){
+                    callback.onProductsLoaded(response.body().getProducts());
+                }else{
+                    callback.onProductsLoadedFailed(new Throwable(response.message()));
+                }
             }
 
             @Override
-            public void onFailure(Call<ProductsResponse> call, Throwable t) {
+            public void onFailure(@NonNull Call<ProductsResponse> call, @NonNull Throwable t) {
                 callback.onProductsLoadedFailed(t);
             }
         });

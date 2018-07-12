@@ -19,6 +19,8 @@ public interface ProductsContract {
 
         void showProductDetail(Product product);
 
+        void showErrorLayout();
+
 
     }
 

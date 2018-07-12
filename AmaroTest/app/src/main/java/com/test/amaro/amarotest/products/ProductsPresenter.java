@@ -11,8 +11,8 @@ import java.util.List;
  */
 public class ProductsPresenter implements ProductsContract.Presenter {
 
-    ProductsContract.View view;
-    ProductsRepositoryImpl repository;
+    private ProductsContract.View view;
+    private ProductsRepositoryImpl repository;
 
     ProductsPresenter(ProductsContract.View view, ProductsRepositoryImpl repository) {
         this.view = view;
@@ -22,18 +22,18 @@ public class ProductsPresenter implements ProductsContract.Presenter {
 
     @Override
     public void loadProducts() {
-//        List<Product> products = new ArrayList<>();
-//        products.add(new Product("Produto A", "R$ 10,00"));
-//        products.add(new Product("Produto B", "R$ 15,00"));
+        view.setLoading(true);
         repository.loadProducts(new ProductsRepository.LoadProductsCallback() {
             @Override
             public void onProductsLoaded(List<Product> products) {
                 view.showProducts(products);
+                view.setLoading(false);
             }
 
             @Override
             public void onProductsLoadedFailed(Throwable throwable) {
-                //TODO Implement error
+                view.setLoading(false);
+                view.showErrorLayout();
             }
         });
 
