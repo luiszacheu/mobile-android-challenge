@@ -9,8 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.request.target.Target;
 import com.test.amaro.amarotest.R;
 import com.test.amaro.amarotest.model.Product;
+import com.test.amaro.amarotest.util.GlideApp;
 
 import java.util.List;
 
@@ -44,6 +46,16 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final Product product =  products.get(position);
 
+        if (product.getImage() != null){
+            GlideApp.with(holder.parent.getContext())
+                    .load(product.getImage())
+                    .override(400, Target.SIZE_ORIGINAL)
+                    .into(holder.image);
+        }else{
+            GlideApp.with(holder.parent.getContext())
+                    .clear(holder.image);
+            holder.image.setImageDrawable(null);
+        }
         holder.name.setText(product.getName());
         holder.price.setText(product.getActualPrice());
         holder.parent.setOnClickListener(new View.OnClickListener() {
@@ -52,6 +64,11 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
                 productListener.onClickListener(product);
             }
         });
+    }
+
+    @Override
+    public void onViewRecycled(@NonNull ViewHolder holder) {
+        super.onViewRecycled(holder);
 
     }
 
@@ -78,6 +95,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+
     }
 
     interface ProductListener{
